@@ -1,11 +1,25 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Agenda | {% block 'title' %}{% endblock 'title' %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block 'styles' %}{% endblock 'styles' %}
 </head>
+
 <body>
+
+    {% include 'layout/partials/nav.html' %}
+
+    <main>
+        {% block 'content' %}{% endblock 'content' %}
+    </main>
     
+    {% block 'scripts' %}{% endblock 'scripts' %}
+
+    {% include 'layout/partials/footer.html' %}
 </body>
 </html>
