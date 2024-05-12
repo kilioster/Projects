@@ -1,18 +1,61 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Contact
+from .forms import ContactForm
 
 # Create your views here.
-def contact(request):
-    return render(request, '../templates/app_contact/index.html', {})
+def contact(request, letter=None):
+    if letter != None:
+        contacts = Contact.objects.filter(name__istartswith=letter) # filtro para buscar por letra
+    else:
+        contacts = Contact.objects.filter(name__icontains=request.GET.get('search', '')) #filtro para buscar por texto
+    
+    context = {
+        'contacts': contacts
+    }
+    return render(request, '../templates/app_contact/index.html', context)
 
-def contactview(request):
-    return render(request, '../templates/app_contact/view.html', {})
+def contactview(request, id):
+    contact = Contact.objects.get(id=id)
+    context = {
+        'contact': contact
+    }
+    return render(request, '../templates/app_contact/view.html', context)
 
-def contactedit(request):
-    return render(request, '../templates/app_contact/edit.html', {})
+def contactedit(request, id):
+    contact = Contact.objects.get(id=id)
+    
+    if request.method == 'GET':
+        form = ContactForm(instance = contact)
+        context = {
+            'form': form,
+            'id': id
+        }
+        return render(request, '../templates/app_contact/edit.html', context)
+    
+    if request.method == 'POST':
+        form = ContactForm(request.POST, instance = contact)
+        if form.is_valid():
+            form.save()
+            return redirect('contact')
+        else:
+            return render(request, '../templates/app_contact/edit.html', {'form': form, 'id': id})
 
-def contactdelete(request):
-    return render(request, '../templates/app_contact/delete.html', {})
+def contactdelete(request, id):
+    contact = Contact.objects.get(id=id).delete()
+    return redirect('contact')
 
 def contactcreate(request):
-    return render(request, '../templates/app_contact/create.html', {})
+    if request.method == 'GET':
+        form = ContactForm()
+        context = {
+            'form': form
+        }
+        return render(request, '../templates/app_contact/create.html', context)
+    
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contact')
+        else:
+            return render(request, '../templates/app_contact/create.html', {'form': form})
