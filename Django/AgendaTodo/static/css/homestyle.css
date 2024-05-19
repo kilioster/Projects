@@ -12,14 +12,14 @@ body {
   min-height: 100vh;
   overflow: hidden;
 }
-ul {
+nav ul {
   position: relative;
 }
-ul li {
+nav ul li {
   list-style: none;
   text-align: center;
 }
-ul li a {
+nav ul li a {
   color: #333;
   text-decoration: none;
   font-size: 3em;
@@ -28,14 +28,14 @@ ul li a {
   font-weight: 700;
   transition: 0.5s;
 }
-ul:hover li a {
+nav ul:hover li a {
   color: #0002;
 }
-ul li:hover a {
+nav ul li:hover a {
   color: #000;
   background: rgba(255, 255, 255, 1);
 }
-ul li a:before {
+nav ul li a:before {
   content: "";
   position: absolute;
   top: 50%;
@@ -54,7 +54,7 @@ ul li a:before {
   letter-spacing: 500px;
   transition: letter-spacing 0.5s, left 0.5s;
 }
-ul li a:hover:before {
+nav ul li a:hover:before {
   content: attr(data-text);
   opacity: 1;
   left: 50%;
@@ -62,21 +62,21 @@ ul li a:hover:before {
   width: 1800px;
   height: 1800px;
 }
-ul li:nth-child(6n + 1) a:before {
+nav ul li:nth-child(6n + 1) a:before {
   background: #81ecec;
 }
-ul li:nth-child(6n + 2) a:before {
+nav ul li:nth-child(6n + 2) a:before {
   background: #ff7675;
 }
-ul li:nth-child(6n + 3) a:before {
+nav ul li:nth-child(6n + 3) a:before {
   background: #55efc4;
 }
-ul li:nth-child(6n + 4) a:before {
+nav ul li:nth-child(6n + 4) a:before {
   background: #a29bfe;
 }
-ul li:nth-child(6n + 5) a:before {
+nav ul li:nth-child(6n + 5) a:before {
   background: #fd79a8;
 }
-ul li:nth-child(6n + 6) a:before {
+nav ul li:nth-child(6n + 6) a:before {
   background: #ffeaa7;
 }

@@ -5,12 +5,12 @@ from .forms import ContactForm
 # Create your views here.
 def contact(request, letter=None):
     if letter != None:
-        contacts = Contact.objects.filter(name__istartswith=letter) # filtro para buscar por letra
+        contact = Contact.objects.filter(name__istartswith=letter) # filtro para buscar por letra
     else:
-        contacts = Contact.objects.filter(name__icontains=request.GET.get('search', '')) #filtro para buscar por texto
+        contact = Contact.objects.filter(name__icontains=request.GET.get('search', '')) #filtro para buscar por texto
     
     context = {
-        'contacts': contacts
+        'contact': contact
     }
     return render(request, '../templates/app_contact/index.html', context)
 
